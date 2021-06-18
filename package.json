@@ -1,0 +1,28 @@
+{
+  "name": "dolbyio-conference-with-apivide-streaming",
+  "version": "1.0.0",
+  "description": "This sample application for the Dolby.io Web SDK is a more complete version of the [getting started](https://github.com/voxeet/voxeet-sdk-browser-gettingstarted/) project.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon  src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dougsillars/dolbyio-conference-with-apivide-streaming.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dougsillars/dolbyio-conference-with-apivide-streaming/issues"
+  },
+  "homepage": "https://github.com/dougsillars/dolbyio-conference-with-apivide-streaming#readme",
+  "dependencies": {
+    "@api.video/nodejs-client": "^2.0.6",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7",
+    "pug": "^3.0.2",
+    "request": "^2.88.2"
+  }
+}

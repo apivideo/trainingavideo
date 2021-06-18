@@ -1,0 +1,24 @@
+head
+ 
+body
+  header.header 
+
+    
+    
+    block content
+      h1.
+        Training videos for #{userName}
+      p When you first arrive, only the first video will be unlocked.  Once you watch a video, refresh the page, and the subsequernt video will unlock.  
+      each videos, index in videolist
+        if(index <= unwatchedVideo)
+          p #{index}    #{videos}
+          iframe(type="text/html", src='https://embed.api.video/vod/'+videos+"?metadata[classUserName]="+userName, width = "960", height="540",frameborder="0", scrollling="no")
+        else 
+          p #{index}    #{videos}
+          img(src='placeholder.jpg',width = "960")     
+      p #{unwatchedVideo}
+   
+	
+    a(href='/') Start over!
+    p
+    

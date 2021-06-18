@@ -1,0 +1,47 @@
+body {background-color: gray;
+    color:white;
+    width: 100%;
+    text-align: center;
+    
+  }
+#intro{
+  padding: 10px;
+  font-size:x-large;
+  margin:auto;
+  text-align: center;
+  line-height: 1.8;
+  width:50%;
+}
+  
+#action__upload{
+    margin: auto;
+    text-align: center;
+    width: 50%;
+   
+    padding:10px;
+    font-size: xx-large;
+    color:black;
+   
+   
+  }
+  #userName{
+    font-size: xx-large;
+    background-color: gray;
+  }
+  #videoId{
+    font-size: xx-large;
+    background-color: gray;
+  }
+  #submitButton{
+    background-color: orange;
+    border-radius: 15px;
+    font-size: xx-large;
+  }
+  #footer{
+    padding: 10px;
+    font-size:x-large;
+    margin:auto;
+    text-align: center;
+    line-height: 1.8;
+    width:50%;
+  }
