@@ -46,6 +46,7 @@ app.get('/training', (req, res) => {
     .then(function(unwatchedVideo){
 
       console.log("the first unwatched video is ", unwatchedVideo);
+
       //now we can buiuld the page.
       return res.render('training', {videolist, unwatchedVideo, userName});
     });
@@ -65,8 +66,13 @@ function interateVideos(videolist, videoDurations, userName, videoCounter){
         if(passfail){
           //video was watched, so lets check the next one
           videoCounter++;
-          var nextVideo = interateVideos(videolist, videoDurations, userName, videoCounter);
-          resolve(nextVideo);
+          if (videoCounter < videolist.length){
+            var nextVideo = interateVideos(videolist, videoDurations, userName, videoCounter);
+            resolve(nextVideo);
+          }else{
+            //the last video was watched so, stop and show all the videos...
+            resolve(videoCounter -1);
+          }
         }else{
           //video was NOT watched start wit this video
           console.log("resolve the counter of the first video not watched", videoCounter);
@@ -154,31 +160,44 @@ function sessionTimeWatched(sessionParams, videoDuration){
     const sessionData = client.rawStatistics.listSessionEvents(sessionParams);
     sessionData.then( function(lastSessionData) {
       //this is the session data
-      //console.log("session events", lastSessionData);
+      console.log("session events", lastSessionData);
       //TODO calculate time watched in the session
       var numberOfEvents = lastSessionData.pagination.itemsTotal;
       var summedtime = 0;
       var starttime=0;
       var endtime = 0;
+      var startEmit;
+      var endEmit;
+      var clockTime=0;
       var counting = false;
       var maxWatchedTime = 0;
       for(j=0; j< numberOfEvents; j++){
         if(lastSessionData.data[j].type == "play" || lastSessionData.data[j].type == "resume"){
           //start time measure
           starttime = lastSessionData.data[j].at;
+          startEmit=Date.parse(lastSessionData.data[j].emittedAt);
           counting = true;
-       //   console.log ("start" , starttime);
+          console.log ("start" , starttime);
         }else if(lastSessionData.data[j].type == "pause" || lastSessionData.data[j].type == "end"){
-          endtime = lastSessionData.data[j].at;
-          counting=false;
-       //   console.log ("stop" , endtime);
-       //   console.log ("added time" , endtime-starttime);
-          summedtime += endtime-starttime;
+          if(counting){
+            endtime = lastSessionData.data[j].at;
+            endEmit=Date.parse(lastSessionData.data[j].emittedAt);
+            counting=false;
+            console.log ("stop" , endtime);
+            console.log ("added time" , endtime-starttime);
+            summedtime += endtime-starttime;
+            endtime=starttime=0;
+            clockTime += (endEmit- startEmit)/1000;
+            
+          }
         }else if(lastSessionData.data[j].type == "seek.forward"){
-        //  console.log("seeked forward", (lastSessionData.data[j].to - lastSessionData.data[j].from));
+          console.log("seeked forward", (lastSessionData.data[j].to - lastSessionData.data[j].from));
           summedtime -= (lastSessionData.data[j].to - lastSessionData.data[j].from);
+          //if there was a seekforward, the max time previously calculated previously is no longer valid and needs to be recalculated.
+          maxWatchedTime = 0;
         }
-        
+        //console.log("summedtime: ", summedtime);
+  
               //summedtime now has the time watched for this session
         if(summedtime > maxWatchedTime){
             maxWatchedTime  = summedtime;
@@ -187,7 +206,12 @@ function sessionTimeWatched(sessionParams, videoDuration){
   //      console.log("summedtime", summedtime + " " + maxWatchedTime);
         
       }
+      console.log("summedtime: ", summedtime);
+      console.log ("time watched by clock is ", clockTime);
+      //if(clockTime > summedtime)
+      
       console.log("<Max Time is", maxWatchedTime);
+ 
       resolve(maxWatchedTime);
     }).catch((error) => {
 
