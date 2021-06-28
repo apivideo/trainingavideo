@@ -22,11 +22,11 @@ const client = new apiVideoClient({apiKey: apiVideoKey});
 
 //we could use the API to grab the videos and their duration, but no need to replicated over and over
 //just hardcoding for the demo
-//var videolist = ['vi6QvU9dhYCzW3BpPvPsZUa8','vi1DrBc0VkPfedcfTc21U1TP','vi47Q8KHXLYyaOoX2Yoznxqh'];
-//var videoDurations= [321,333,91];
-var videolist = ['vi47Q8KHXLYyaOoX2Yoznxqh','vi6QvU9dhYCzW3BpPvPsZUa8','vi1DrBc0VkPfedcfTc21U1TP'];
+var videolist = ['vi6QvU9dhYCzW3BpPvPsZUa8','vi1DrBc0VkPfedcfTc21U1TP','vi47Q8KHXLYyaOoX2Yoznxqh'];
+var videoDurations= [321,333,91];
+// var videolist = ['vi47Q8KHXLYyaOoX2Yoznxqh','vi6QvU9dhYCzW3BpPvPsZUa8','vi1DrBc0VkPfedcfTc21U1TP'];
 
-var videoDurations= [91,321,333];
+// var videoDurations= [91,321,333];
 
 
 var timeWatched = [0,0,0];
@@ -47,7 +47,7 @@ app.get('/training', (req, res) => {
 
       console.log("the first unwatched video is ", unwatchedVideo);
 
-      //now we can buiuld the page.
+      //now we can build the page.
       return res.render('training', {videolist, unwatchedVideo, userName});
     });
  
@@ -228,5 +228,4 @@ function sessionTimeWatched(sessionParams, videoDuration){
 app.listen(3028, () =>
   console.log('Example app listening on port 3028!'),
 );
-
 
