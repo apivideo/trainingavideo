@@ -41,7 +41,7 @@ app.get('/training', (req, res) => {
 
   var userName = req.query.userName;
   
-  var findTheVideoToStart  = interateVideos(videolist, videoDurations, userName, 0);
+  var findTheVideoToStart  = iterateVideos(videolist, videoDurations, userName, 0);
   findTheVideoToStart
     .then(function(unwatchedVideo){
 
@@ -54,7 +54,7 @@ app.get('/training', (req, res) => {
 });
 
 
-function interateVideos(videolist, videoDurations, userName, videoCounter){
+function iterateVideos(videolist, videoDurations, userName, videoCounter){
   return new Promise(function(resolve, reject){
       //soo take list of videos, and iterate until we know which video can be watched.
       console.log("testing video "+videoCounter);
@@ -67,7 +67,7 @@ function interateVideos(videolist, videoDurations, userName, videoCounter){
           //video was watched, so lets check the next one
           videoCounter++;
           if (videoCounter < videolist.length){
-            var nextVideo = interateVideos(videolist, videoDurations, userName, videoCounter);
+            var nextVideo = iterateVideos(videolist, videoDurations, userName, videoCounter);
             resolve(nextVideo);
           }else{
             //the last video was watched so, stop and show all the videos...
@@ -162,7 +162,7 @@ function sessionTimeWatched(sessionParams, videoDuration){
       //this is the session data
       console.log("session events", lastSessionData);
       //TODO calculate time watched in the session
-      var numberOfEvents = lastSessionData.pagination.itemsTotal;
+      var numberOfEvents = Math.min(lastSessionData.pagination.itemsTotal, 100);
       var summedtime = 0;
       var starttime=0;
       var endtime = 0;
