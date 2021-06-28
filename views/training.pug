@@ -10,7 +10,7 @@ body
         block content
           h1.
             Training videos for #[span #{userName}].
-          p When you first arrive, only the first video will be unlocked.  Once you watch a video, refresh the page, and the subsequernt video will unlock.  
+          p When you first arrive, only the first video will be unlocked.  Once you watch a video, refresh the page, and the subsequent video will unlock.  
           each videos, index in videolist
             if(index <= unwatchedVideo)
               details
