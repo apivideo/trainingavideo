@@ -81,12 +81,7 @@ function iterateVideos(videolist, videoDurations, userName, videoCounter){
       }).catch((error) =>{
         reject(error);
     });
-
-
-
   });
-
-
 }
 
 function  videoWatched(videoId, videoDuration, userName, videoCounter){
