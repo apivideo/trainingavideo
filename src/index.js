@@ -28,7 +28,7 @@ var videoDurations= [321,333,91];
 
 // var videoDurations= [91,321,333];
 
-
+//random comment
 var timeWatched = [0,0,0];
 
 app.get('/training', (req, res) => {
