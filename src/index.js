@@ -220,7 +220,7 @@ function sessionTimeWatched(sessionParams, videoDuration){
 
 
 //testing on 3028
-app.listen(3028, () =>
+app.listen(process.env.PORT || 3028, () =>
   console.log('Example app listening on port 3028!'),
 );
 
