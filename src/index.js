@@ -10,6 +10,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 var request = require("request");
 
+//ssl
+var secure = require('ssl-express-www');
+app.use(secure);
+
+
 //add pug
 const pug = require('pug');
 app.set('view engine','pug');
